@@ -850,7 +850,9 @@
       g2.cur = { ch: it.l, lane, x: laneX(lane), y: 120 };
       setTimeout(() => g2.running && say(it.w), 80);
     } else {
-      g2.cur = { ch: rand(G2L), lane, x: laneX(lane), y: -40 };
+      const ch = rand(G2L);
+      g2.cur = { ch, lane, x: laneX(lane), y: -40 };
+      setTimeout(() => g2.running && say(ch.toUpperCase()), 80);   // letter name: "bee", "dee"…
     }
   }
   function g2Move(dir) {
@@ -886,7 +888,7 @@
         ? `It’s <b>${g2WordHtml(g2.item)}</b>. <span class="hl">${c.ch}</span>: ${G2TIP[c.ch]}`
         : `That was <span class="hl">${c.ch}</span>: ${G2TIP[c.ch]}`;
     }
-    if (g2.words) { g2.reveal = { ok, t: performance.now() }; setTimeout(() => g2.running && say(g2.item.w), 250); }
+    if (g2.words) g2.reveal = { ok, t: performance.now() };
     g2Hud();
     if (g2.lives <= 0) {
       g2.running = false; cancelAnimationFrame(g2.raf); g2Draw();
